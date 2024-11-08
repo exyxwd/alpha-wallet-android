@@ -8,6 +8,7 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -194,6 +195,9 @@ public class ActivityFragment extends BaseFragment implements View.OnClickListen
 
         systemView.showProgress(false);
         refreshLayout.setOnRefreshListener(this::refreshTransactionList);
+
+        Button exampleTransactionButton = view.findViewById(R.id.example_transaction_button);
+        exampleTransactionButton.setOnClickListener(v -> viewModel.createExampleTransaction());
     }
 
     private void onDefaultWallet(Wallet wallet)

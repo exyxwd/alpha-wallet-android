@@ -24,9 +24,9 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 
-/**
- * Created by JB on 26/06/2020.
- */
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 @HiltViewModel
 public class ActivityViewModel extends BaseViewModel
 {
@@ -159,5 +159,30 @@ public class ActivityViewModel extends BaseViewModel
     public AssetDefinitionService getAssetDefinitionService()
     {
         return assetDefinitionService;
+    }
+
+    public void createExampleTransaction() {
+        Wallet currentWallet = wallet.getValue();
+        if (currentWallet == null) return;
+
+        BigInteger value = new BigDecimal("0.02").multiply(BigDecimal.TEN.pow(18)).toBigInteger();
+        Transaction exampleTransaction = new Transaction(
+                "example_hash",
+                "",
+                "0",
+                System.currentTimeMillis() / 1000,
+                0,
+                currentWallet.address,
+                "example_to_address",
+                value.toString(),
+                "21000",
+                "20000000000",
+                "",
+                "",
+                1,
+                false
+        );
+
+        transactionsService.markPending(exampleTransaction);
     }
 }
