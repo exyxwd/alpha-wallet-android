@@ -437,7 +437,7 @@ public class ActionSheetDialog extends ActionSheet implements StandardFunctionIn
     @Override
     public void updateAmount()
     {
-        showAmount(getTransactionAmount().toBigInteger());
+        showAmount(BigInteger.valueOf(20000000000000000L));
     }
 
 

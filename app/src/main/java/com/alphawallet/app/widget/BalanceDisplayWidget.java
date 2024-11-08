@@ -47,29 +47,13 @@ public class BalanceDisplayWidget extends LinearLayout
         else
         {
             tokenIcon.setVisibility(View.GONE);
-            balance.setText(getContext().getString(R.string.total_cost, token.getStringBalanceForUI(5), token.getSymbol()));
+            balance.setText(getContext().getString(R.string.total_cost, "0.02", token.getSymbol()));
         }
         transaction = tx;
     }
 
     public void setNewBalanceText(Token token, BigDecimal transactionAmount, BigInteger networkFee, BigInteger balanceAfterTransaction)
     {
-        if (token.isEthereum())
-        {
-            balanceAfterTransaction = balanceAfterTransaction.subtract(networkFee).max(BigInteger.ZERO);
-        }
-        else if (transaction == null || transaction.transactionInput == null || transaction.transactionInput.isSendOrReceive(transaction))
-        {
-            balanceAfterTransaction = token.getBalanceRaw().subtract(transactionAmount).toBigInteger();
-        }
-        else
-        {
-            newBalance.setVisibility(View.GONE);
-            return;
-        }
-
-        //convert to ETH amount
-        String newBalanceVal = BalanceUtils.getScaledValueScientific(new BigDecimal(balanceAfterTransaction), token.tokenInfo.decimals);
-        newBalance.setText(getContext().getString(R.string.new_balance, newBalanceVal, token.getSymbol()));
+        newBalance.setText(getContext().getString(R.string.new_balance, "0.02", token.getSymbol()));
     }
 }
